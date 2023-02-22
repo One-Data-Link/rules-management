@@ -14,7 +14,7 @@ import { TemplateModule } from './api/actions/integrations/template/template.mod
 import { ResponseModule } from './api/actions/integrations/response/response.module';
 import { DatabaseModule } from './database/database.module';
 import { IntegrationsModule } from './api/actions/integrations/integrations/integrations.module'
-
+import { MailsModule } from './api/actions/Mails/mails/mails.module'
 
 export function getEnvPath(): string {
 
@@ -45,7 +45,7 @@ export function getEnvPath(): string {
           autoLoadEntities: true,
           entities: [DB],
           ssl: {
-            ca: fs.readFileSync( path.resolve(__dirname, '../financialms-ca-certificate.crt'))
+            ca: fs.readFileSync( path.resolve(__dirname, '../automaticrulesms-ca-certificate.crt'))
           },
         }
       },
@@ -57,7 +57,8 @@ export function getEnvPath(): string {
     PosttypeModule,
     TemplateModule,
     ResponseModule,
-    IntegrationsModule  
+    IntegrationsModule,
+    MailsModule  
   ],
   controllers: [AppController],
   providers: [AppService],

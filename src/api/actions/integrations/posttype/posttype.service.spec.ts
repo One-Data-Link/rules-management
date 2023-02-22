@@ -1,18 +1,45 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { PosttypeService } from './posttype.service';
+import { Test } from "@nestjs/testing"
+import { getRepositoryToken } from "@nestjs/typeorm"
+import { DB } from '../../../../database/db.entity'
+import { posttypeDto } from "./dto/postType.dto"
+import { PosttypeService } from "./posttype.service"
 
-describe('PosttypeService', () => {
-  let service: PosttypeService;
-
+describe("testing posttype", () =>{
+  let Posttypeservice:PosttypeService;
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [PosttypeService],
+    const module = await Test.createTestingModule({
+      providers:[
+        PosttypeService,
+        {
+          provide: getRepositoryToken(DB),
+          useValue: {}
+        }
+      ]
     }).compile();
-
-    service = module.get<PosttypeService>(PosttypeService);
+    Posttypeservice = await module.get<PosttypeService>(PosttypeService)
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
-});
+  describe("Testing Posttype Service after mock", () =>{
+    it("Posttype: Testing Posttype findAll() ", () =>{
+      expect(typeof Posttypeservice.findAll()).not.toEqual(null);
+    });
+
+    it("Posttype: Testing Posttype create() ", () =>{
+      let Posttype:posttypeDto = new posttypeDto("DELETE");
+
+      expect(typeof Posttypeservice.create(Posttype)).not.toEqual(null);
+    });
+
+    it("Posttype: Testing Posttype update() ", () =>{
+      let Posttype:posttypeDto = new posttypeDto("UPDATE");
+                                          
+      expect(typeof Posttypeservice.update("1",Posttype)).not.toEqual(null);
+    });
+
+    it("Posttype: Testing Posttype delete() ", () =>{
+     
+      expect(typeof Posttypeservice.delete("1")).not.toEqual(null);
+    });
+
+  })
+})

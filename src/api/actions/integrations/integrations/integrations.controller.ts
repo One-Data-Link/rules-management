@@ -30,4 +30,9 @@ export class IntegrationsController {
     return this.integrationsService.delete(idintegrations);
   }
 
+  @Post(':idintegrations')
+  send(@Param('idintegrations') idintegrations: string) {
+    return this.integrationsService.send(idintegrations);
+  }
+
 }
