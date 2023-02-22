@@ -1,18 +1,45 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { HeadersService } from './headers.service';
+import { Test } from "@nestjs/testing"
+import { getRepositoryToken } from "@nestjs/typeorm"
+import { DB } from '../../../../database/db.entity'
+import { CreateHeaderDto } from "./dto/create-header.dto"
+import { HeadersService } from "./headers.service"
 
-describe('HeadersService', () => {
-  let service: HeadersService;
-
+describe("testing headers", () =>{
+  let headerService:HeadersService;
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [HeadersService],
+    const module = await Test.createTestingModule({
+      providers:[
+        HeadersService,
+        {
+          provide: getRepositoryToken(DB),
+          useValue: {}
+        }
+      ]
     }).compile();
-
-    service = module.get<HeadersService>(HeadersService);
+    headerService = await module.get<HeadersService>(HeadersService)
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
-});
+  describe("Testing Header Service after mock", () =>{
+    it("Header: Testing method findAll() ", () =>{
+      expect(typeof headerService.findAll()).not.toEqual(null);
+    });
+
+    it("Header: Testing method create() ", () =>{
+      let header:CreateHeaderDto = new CreateHeaderDto("Authorization","1234556677777");
+
+      expect(typeof headerService.create(header)).not.toEqual(null);
+    });
+
+    it("Header: Testing method update() ", () =>{
+      let header:CreateHeaderDto = new CreateHeaderDto("Authorization","00000234556677777");
+                                          
+      expect(typeof headerService.update("1",header)).not.toEqual(null);
+    });
+
+    it("Header: Testing method delete() ", () =>{
+     
+      expect(typeof headerService.delete("1")).not.toEqual(null);
+    });
+
+  })
+})

@@ -14,7 +14,6 @@ async function bootstrap() {
   process.env.TZ = 'America/Los_Angeles';
   const secrets = await getSecrets();
   globalSecrets = secrets;
-  console.log('gloablSecrets', globalSecrets);
   const app = await NestFactory.create(AppModule);
   const logger = new Logger('RULES MANAGEMENT MS');
   const port = parseInt(globalSecrets['PORT'],10);

@@ -26,7 +26,7 @@ export class IntegrationsService {
        
     }
 
-    async findAll() {
+    async findAll()  {
         try{
            return await this.DBRepository.query("SELECT idheader,idresponse,idposttype,idmethod,"+
                                     "idtemplate,path,userID,dateCreated,dateUpdated FROM integrations;")
@@ -54,7 +54,20 @@ export class IntegrationsService {
 
     async delete(idintegrations:string){
         try{
-            return await this.DBRepository.query("SELECT delteIntegration("+idintegrations+")");
+            return await this.DBRepository.query("SELECT delteIntegration("+idintegrations+");");
+        }catch(Exception){
+            return "Ocurrio un error: "+Exception;
+        }
+    }
+
+    async send(idintegrations:string){
+        try{
+            let query = "SELECT idheader,idresponse,idposttype,idmethod,"+
+            "idtemplate,path,userID,dateCreated,dateUpdated,deleted FROM integrations WHERE idintegrations = "+idintegrations;    
+            let endpointData = await this.DBRepository.query(query);
+
+            
+            return (endpointData) 
         }catch(Exception){
             return "Ocurrio un error: "+Exception;
         }

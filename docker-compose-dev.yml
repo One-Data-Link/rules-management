@@ -1,0 +1,226 @@
+version: '3.9'
+
+secrets:                        # top level secrets block
+  my_external_secret:
+    external: true
+  my_file_secret:
+    file: my_file_secret.txt
+
+services:
+  documents:
+    container_name: documents
+    build:
+      context: documents
+      target: development
+      dockerfile: ./Dockerfile.dev
+    command: npm run start:dev
+    ports:
+      - 6001:80
+    networks:
+      - dev-network
+    volumes:
+      - ./documents:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+  utilities:
+    container_name: utilities
+    build:
+      context: utilities
+      target: development
+      dockerfile: ./Dockerfile.dev
+    command: npm run start:dev
+    ports:
+      - 6006:80
+    networks:
+      - dev-network
+    volumes:
+      - ./utilities:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+  matcher:
+    container_name: matcher
+    build:
+      context: matcher
+      target: development
+      dockerfile: ./Dockerfile.dev
+    command: npm run start:dev
+    ports:
+      - 6002:80
+    networks:
+      - dev-network
+    volumes:
+      - ./matcher:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+  lead-receiver:
+    container_name: lead-receiver
+    build:
+      context: lead-receiver
+      target: development
+      dockerfile: ./Dockerfile.dev
+    command: npm run start:dev
+    ports:
+      - 6004:80
+    networks:
+      - dev-network
+    volumes:
+      - ./lead-receiver:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+  lead-management:
+    container_name: lead-management
+    build:
+      context: lead-management
+      target: development
+      dockerfile: ./Dockerfile.dev
+    command: npm run start:dev
+    ports:
+      - 6005:80
+    networks:
+      - dev-network
+    volumes:
+      - ./lead-management:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+  authentication:
+    container_name: authentication
+    build:
+      context: authentication
+      target: development
+      dockerfile: ./Dockerfile.dev
+    command: npm run start:dev
+    ports:
+      - 6003:80
+    networks:
+      - dev-network
+    volumes:
+      - ./authentication:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+  authorization:
+    container_name: authorization
+    build:
+      context: authorization
+      target: development
+      dockerfile: ./Dockerfile.dev
+    command: npm run start:dev
+    ports:
+      - 6008:80
+    networks:
+      - dev-network
+    volumes:
+      - ./authorization:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+  optimizer:
+    container_name: optimizer
+    build:
+      context: optimizer
+      target: development
+      dockerfile: ./Dockerfile.dev
+    command: npm run start:dev
+    ports:
+      - 6007:80
+    networks:
+      - dev-network
+    volumes:
+      - ./optimizer:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+  distribution:
+    container_name: distribution
+    build:
+      context: distribution
+      target: development
+      dockerfile: ./Dockerfile.dev
+    command: npm run start:dev
+    ports:
+      - 6009:80
+    networks:
+      - dev-network
+    volumes:
+      - ./distribution:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+  campaignsmanager:
+    container_name: campaignsmanager
+    build:
+      context: campaign-manager
+      target: development
+      dockerfile: ./Dockerfile.dev
+    command: npm run start:dev
+    ports:
+      - 6010:80
+    networks:
+      - dev-network
+    volumes:
+      - ./campaign-manager:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+  financial:
+    container_name: financial
+    build:
+      context: financial
+      target: development
+      dockerfile: ./Dockerfile.dev
+    command: npm run start:dev
+    ports:
+      - 6011:80
+    networks:
+      - dev-network
+    volumes:
+      - ./financial:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+  attachments:
+    container_name: attachments
+    build:
+      context: attachments
+      target: development
+      dockerfile: ./Dockerfile.dev
+    command: npm run start:dev
+    ports:
+      - 6012:80
+    networks:
+      - dev-network
+    volumes:
+      - ./attachments:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+  automatic-rules:
+    container_name: automatic-rules
+    build:
+      context: automatic-rules
+      target: development
+      dockerfile: ./Dockerfile.dev
+    command: npm run start:dev
+    ports:
+      - 6013:80
+    networks:
+      - dev-network
+    volumes:
+      - ./automatic-rules:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+  ms-gateway:
+    container_name: ms-gateway
+    build:
+      context: ms-gateway
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "8082:8080"
+    networks:
+      - dev-network
+    restart: unless-stopped
+  optimizer-calculator:
+    container_name: optimizer-calculator
+    build:
+      context: optimizer-calculator
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "80:5001"
+    networks:
+      - dev-network
+    restart: unless-stopped
+networks:
+  dev-network:
