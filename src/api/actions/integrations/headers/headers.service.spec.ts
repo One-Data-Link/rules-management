@@ -25,20 +25,20 @@ describe("testing headers", () =>{
     });
 
     it("Header: Testing method create() ", () =>{
-      let header:CreateHeaderDto = new CreateHeaderDto("Authorization","1234556677777");
+      let header:CreateHeaderDto = new CreateHeaderDto(1,"Authorization","1234556677777");
 
       expect(typeof headerService.create(header)).not.toEqual(null);
     });
 
     it("Header: Testing method update() ", () =>{
-      let header:CreateHeaderDto = new CreateHeaderDto("Authorization","00000234556677777");
+      let header:CreateHeaderDto = new CreateHeaderDto(1,"Authorization","00000234556677777");
                                           
-      expect(typeof headerService.update("1",header)).not.toEqual(null);
+      expect(typeof headerService.update("1","1",header)).not.toEqual(null);
     });
 
     it("Header: Testing method delete() ", () =>{
      
-      expect(typeof headerService.delete("1")).not.toEqual(null);
+      expect(typeof headerService.delete("1","1")).not.toEqual(null);
     });
 
   })

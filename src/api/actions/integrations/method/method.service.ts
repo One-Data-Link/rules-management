@@ -6,9 +6,7 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class MethodService {
-    constructor(@InjectRepository(DB) private DBRepository:Repository<DB>){
-
-    }
+    constructor(@InjectRepository(DB) private DBRepository:Repository<DB>){ }
 
     async create(methodDto: MethodDto) {
         try{
@@ -43,5 +41,14 @@ export class MethodService {
         }catch(Exception){
             return "Ocurrio un error: "+Exception;
         }
+    }
+
+    async findOne(idintegration:string) {
+        try{
+           return await this.DBRepository.query("select m.method from method as m  left join integrations i "+
+                            " on m.idmethod = i.idmethod where i.idintegrations="+ idintegration)
+        }catch(Exception){
+            return "Ocurrio un error: "+Exception;
+        };
     }
 }

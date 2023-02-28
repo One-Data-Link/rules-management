@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 @Module({
   controllers: [MethodController],
   providers: [MethodService],
+  exports: [MethodService],
   imports: [TypeOrmModule.forFeature([DB])]
 })
 export class MethodModule {}

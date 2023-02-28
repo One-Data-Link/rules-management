@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ClassSerializerInterceptor, UseInterceptors, Inject } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 //import { Auth } from '../../auth/decorators/auth.decorator';
 import { IntegrationsService } from './integrations.service';
@@ -8,6 +8,7 @@ import { IntegrationsDto } from './dto/integrations.dto';
 //@Auth()
 @ApiTags('Integrations')
 export class IntegrationsController {
+
   constructor(private readonly integrationsService: IntegrationsService) {}
 
   @Post()
@@ -20,6 +21,12 @@ export class IntegrationsController {
     return this.integrationsService.findAll();
   }
 
+  @Get('integration/:id')
+  findOne(@Param('id') id: string) {
+    return this.integrationsService.findOne(id);
+  }
+
+
   @Patch(':idintegrations')
   update(@Param('idintegrations') idintegrations: string, @Body() integrationsDto: IntegrationsDto){
     return this.integrationsService.update(idintegrations,integrationsDto);
@@ -30,9 +37,10 @@ export class IntegrationsController {
     return this.integrationsService.delete(idintegrations);
   }
 
-  @Post(':idintegrations')
-  send(@Param('idintegrations') idintegrations: string) {
-    return this.integrationsService.send(idintegrations);
+  @Post('/post/:idintegrations')
+  send(@Param('idintegrations') idintegrations: string){
+    const integration=this.integrationsService.send(idintegrations)
+    return integration;
   }
 
 }

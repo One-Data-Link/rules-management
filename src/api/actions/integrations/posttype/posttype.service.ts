@@ -43,4 +43,13 @@ export class PosttypeService {
             return "Ocurrio un error: "+Exception;
         }
     }
+
+    async findOne(idintegration:string) {
+        try{
+           return await this.DBRepository.query("select p.type from posttype p left join integrations i "+
+           " on p.idposttype = i.idposttype where i.idintegrations="+ idintegration)
+        }catch(Exception){
+            return "Ocurrio un error: "+Exception;
+        };
+    }
 }

@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 @Module({
     controllers: [HeadersController],
     providers: [HeadersService],
+    exports: [HeadersService],
     imports: [TypeOrmModule.forFeature([DB])]
 })
 export class HeadersModule {}

@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as fs from 'fs';
 import * as path from 'path';
 import { DB } from './database/db.entity';
+import { IntegrationsEntity } from './api/actions/integrations/integrations/entity/intgrations.entity';
 import { globalSecrets } from './main';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -10,11 +11,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { HeadersModule } from './api/actions/integrations/headers/headers.module';
 import { PosttypeModule } from './api/actions/integrations/posttype/posttype.module';
 import { MethodModule } from './api/actions/integrations/method/method.module';
-import { TemplateModule } from './api/actions/integrations/template/template.module';
-import { ResponseModule } from './api/actions/integrations/response/response.module';
 import { DatabaseModule } from './database/database.module';
 import { IntegrationsModule } from './api/actions/integrations/integrations/integrations.module'
-import { MailsModule } from './api/actions/Mails/mails/mails.module'
+import { MailsModule } from './api/actions/mails/mails.module';
+import { NotificationsModule }  from './api/actions/notifications/notifications.module'
+
 
 export function getEnvPath(): string {
 
@@ -22,7 +23,6 @@ export function getEnvPath(): string {
   const filename: string = env ? `${env}.env` : 'development.env';
 
   return filename;
-
 }
 
 @Module({
@@ -43,7 +43,7 @@ export function getEnvPath(): string {
           password: globalSecrets['DB_PASSWORD'],
           database: globalSecrets['DB_NAME'],
           autoLoadEntities: true,
-          entities: [DB],
+          entities: [DB, IntegrationsEntity],
           ssl: {
             ca: fs.readFileSync( path.resolve(__dirname, '../automaticrulesms-ca-certificate.crt'))
           },
@@ -55,10 +55,9 @@ export function getEnvPath(): string {
     DatabaseModule,
     MethodModule,
     PosttypeModule,
-    TemplateModule,
-    ResponseModule,
     IntegrationsModule,
-    MailsModule  
+    MailsModule,
+    NotificationsModule  
   ],
   controllers: [AppController],
   providers: [AppService],

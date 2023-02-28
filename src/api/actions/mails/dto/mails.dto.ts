@@ -2,33 +2,33 @@ import { ApiProperty } from "@nestjs/swagger";
 
 export class MailsDto {
     @ApiProperty()
-    userID:number;
+    userid:number;
 
     @ApiProperty()
-    to:string;
+    tomail:string;
 
     @ApiProperty()
     subject:string;
 
     @ApiProperty()
-    from:string;
+    frommail:string;
 
     @ApiProperty()
-    dateCreated:string;
+    datecreated:string;
     
     @ApiProperty()
-    dateUpdated:string;
+    dateupdated:string;
     
     @ApiProperty()
-    template:string;
+    templatemail:string;
     
     constructor(userID:number, to:string, from:string, subject:string, dateCreated:string, dateUpdated:string, template:string){
-        this.userID=userID;
-        this.to=to;
-        this.from=from;
+        this.userid=userID;
+        this.tomail=to;
+        this.frommail=from;
         this.subject=subject;
-        this.dateCreated=dateCreated;
-        this.dateUpdated=dateUpdated;
-        this.template=template;
+        this.datecreated=dateCreated;
+        this.dateupdated=dateUpdated;
+        this.templatemail=template;
     }
 }

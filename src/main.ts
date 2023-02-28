@@ -18,12 +18,12 @@ async function bootstrap() {
   const logger = new Logger('RULES MANAGEMENT MS');
   const port = parseInt(globalSecrets['PORT'],10);
 
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({transform:true}));
   app.useGlobalFilters(new AllExceptionFilter());
 
   initSwagger(app);
 
-  await app.listen(port);
+  await app.listen(3000);
 
   logger.debug(`Server is running at ${await app.getUrl()}/api/docs`);
 

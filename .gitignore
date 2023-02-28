@@ -3,6 +3,7 @@
 /node_modules
 .dev.env
 .env
+/src/doppler-secrets.ts
 
 # Logs
 logs

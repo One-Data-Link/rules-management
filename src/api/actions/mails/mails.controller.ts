@@ -20,14 +20,20 @@ export class MailsController {
     return this.MailsService.getAll();
   }
 
- /* @Patch(':idheader')
-  update(@Param('idheader') idheader: string, @Body() createHeaderDto: CreateHeaderDto){
-    return this.MailsService.update(idheader, createHeaderDto);
+  @Patch(':idmail')
+  update(@Param('idmail') idmail: string, @Body() mailsDto:MailsDto){
+    return this.MailsService.update(idmail, mailsDto);
   }
 
-  @Delete(':idheader')
-  delete(@Param('idheader') idheader: string) {
-    return this.MailsService.delete(idheader);
-  }*/
+  @Delete(':idmail')
+  delete(@Param('idmail') idmail: string) {
+    return this.MailsService.delete(idmail);
+  }
+
+  @Post('send')
+  sendMail(){
+    const integration=this.MailsService.sendMail();
+    return integration;
+  }
 
 }

@@ -20,14 +20,19 @@ export class HeadersController {
     return this.headersService.findAll();
   }
 
-  @Patch(':idheader')
-  update(@Param('idheader') idheader: string, @Body() createHeaderDto: CreateHeaderDto){
-    return this.headersService.update(idheader, createHeaderDto);
+  @Get('integration/:id')
+  findOne(@Param('id') id: string) {
+    return this.headersService.findOne(id);
   }
 
-  @Delete(':idheader')
-  delete(@Param('idheader') idheader: string) {
-    return this.headersService.delete(idheader);
+  @Patch(':idheader/:idintegration')
+  update(@Param('idheader') idheader: string, @Param('idintegration') idintegration: string, @Body() createHeaderDto: CreateHeaderDto){
+    return this.headersService.update(idheader,idintegration, createHeaderDto);
+  }
+
+  @Delete(':idheader/:idintegration')
+  delete(@Param('idheader') idheader: string, @Param('idintegration') idintegration: string,) {
+    return this.headersService.delete(idheader,idintegration);
   }
 
 }

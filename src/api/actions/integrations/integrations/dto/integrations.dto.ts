@@ -1,12 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Expose } from "class-transformer";
 
 export class IntegrationsDto {
-    @ApiProperty()
-    idheader:number;
-
-    @ApiProperty()
-    idresponse:number;
-
+  
     @ApiProperty()
     idposttype:number;
 
@@ -14,30 +10,39 @@ export class IntegrationsDto {
     idmethod:number;
 
     @ApiProperty()
-    idtemplate:number;
-
-    @ApiProperty()
     path:string;
     
     @ApiProperty()
-    userID:number;
+    userid:number;
 
     @ApiProperty()
-    dateCreated:string;
+    status:number;
 
     @ApiProperty()
-    dateUpdated:string;
+    response:string;
 
-    constructor(idheader:number, idresponse:number, idposttype:number, idmethod:number, idtemplate:number,path:string, userID:number, dateCreated:string, dateUpdated:string){
-        this.idheader=idheader;
-        this.idresponse=idresponse;
+    @ApiProperty()
+    template:string;
+
+    @ApiProperty()
+    datecreated:string;
+
+    @Expose()
+    @ApiProperty()
+    dateupdated:string;
+
+    constructor(idposttype:number, idmethod:number,path:string, userid:number,
+        status:number, response:string, template:string, datecreated:string, dateupdated:string){
         this.idposttype=idposttype;
         this.idmethod=idmethod;
-        this.idtemplate=idtemplate;
         this.path=path;
-        this.userID=userID;
-        this.dateCreated=dateCreated;
-        this.dateUpdated=dateUpdated;
+        this.userid=userid;
+        this.status=status;
+        this.response=response;
+        this.template=template;
+        this.datecreated=datecreated;
+        this.dateupdated=dateupdated
+        ;
     }
 
 
